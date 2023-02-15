@@ -14,11 +14,16 @@ const getUserById = (req, res) => {
   User.findById(req.params.id)
     .then((user) => {
       if (!user) {
-        return res.status(NOT_FOUND_ERROR).send({ message: 'Пользователь по указанному id не найден' });
+        res.status(NOT_FOUND_ERROR).send({ message: 'Пользователь по указанному id не найден' });
+      } else {
+        res.status(200).send({ data: user });
       }
-      return res.status(200).send({ data: user });
     })
-    .catch((err) => res.status(INTERNAL_SERVER_ERROR).send(err));
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        res.status(BAD_REQUEST_ERROR).send({ message: 'Переданны некоректные данные' });
+      }
+    });
 };
 
 const createUser = (req, res) => {
@@ -50,14 +55,16 @@ const updateUser = (req, res) => {
     .then((user) => {
       if (!user) {
         res.status(NOT_FOUND_ERROR).send({ message: 'Пользователь с указанным _id не найден.' });
+      } else {
+        res.status(200).send(user);
       }
-      res.status(200).send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
         res.status(BAD_REQUEST_ERROR).send({ message: 'Переданы некорректные данные при обновлении профиля.' });
+      } else {
+        res.status(INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию' });
       }
-      res.status(INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию' });
     });
 };
 
@@ -75,14 +82,16 @@ const updateUserAvatar = (req, res) => {
     .then((user) => {
       if (!user) {
         res.status(NOT_FOUND_ERROR).send({ message: 'Пользователь с указанным _id не найден.' });
+      } else {
+        res.status(200).send(user);
       }
-      res.status(200).send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
         res.status(BAD_REQUEST_ERROR).send({ message: 'Переданы некорректные данные при обновлении аватара.' });
+      } else {
+        res.status(INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию' });
       }
-      res.status(INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию' });
     });
 };
 module.exports = {
