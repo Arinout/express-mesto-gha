@@ -1,6 +1,6 @@
 const User = require('../models/user');
 
-const { BAD_REQUEST_ERROR, NOT_FOUND_ERROR, INTERNAL_SERVER_ERROR } = ('../utils/constants');
+const { BAD_REQUEST_ERROR, NOT_FOUND_ERROR, INTERNAL_SERVER_ERROR } = require('../utils/constants');
 
 const getAllUsers = (req, res) => {
   User.find({})
@@ -13,9 +13,8 @@ const getUserById = (req, res) => {
     .then((user) => {
       if (!user) {
         res.status(NOT_FOUND_ERROR).send({ message: 'Пользователь по указанному id не найден' });
-      } else {
-        res.status(200).send({ data: user });
       }
+      res.status(200).send({ data: user });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -30,12 +29,11 @@ const createUser = (req, res) => {
     about,
     avatar,
   } = req.body;
-
   User.create({ name, about, avatar })
     .then((user) => res.status(200).send({ data: user }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        res.status(BAD_REQUEST_ERROR).send({ message: 'Переданны некоректные данные при создании пользователя' });
+        res.status(BAD_REQUEST_ERROR).send({ message: 'Переданы некорректные данные при создании пользователя' });
       }
     });
 };

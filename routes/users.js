@@ -15,6 +15,3 @@ users.patch('/me', updateUser);
 users.patch('/me/avatar', updateUserAvatar);
 
 module.exports = users;
-
-// id
-// 638dcabcf5ebe088192a1bc0
