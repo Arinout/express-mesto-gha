@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 app.use('/users', users);
 app.use('/cards', cards);
 app.use((req, res, next) => {
-  next(res.status(NOT_FOUND_ERROR).send('Ресурс не найден'));
+  next(res.status(NOT_FOUND_ERROR).send({ message: 'Ресурс не найден' }));
 });
 
 app.listen(PORT, () => {
