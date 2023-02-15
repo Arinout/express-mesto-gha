@@ -1,8 +1,6 @@
 const Card = require('../models/card');
 
-const BAD_REQUEST_ERROR = 400;
-const NOT_FOUND_ERROR = 404;
-const INTERNAL_SERVER_ERROR = 500;
+const { BAD_REQUEST_ERROR, NOT_FOUND_ERROR, INTERNAL_SERVER_ERROR } = ('../utils/constants');
 
 const findAllCards = (req, res) => {
   Card.find({})
