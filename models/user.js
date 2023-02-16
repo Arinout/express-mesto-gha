@@ -16,6 +16,12 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     required: true,
+    validate: {
+      validator(avatarLink) {
+        return /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-])+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/i.test(avatarLink);
+      },
+      message: 'Неправильный формат ссылки',
+    },
   },
 });
 

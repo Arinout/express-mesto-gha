@@ -17,7 +17,7 @@ const createCard = (req, res) => {
       if (err.name === 'ValidationError') {
         res.status(BAD_REQUEST_ERROR).send({ message: 'Переданы некорректные данные для создания карточки.' });
       }
-      res.status(INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию' });
+      res.status(INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка' });
     });
 };
 
@@ -33,7 +33,7 @@ const deleteCard = (req, res) => {
       if (err.name === 'CastError') {
         res.status(BAD_REQUEST_ERROR).send({ message: 'Передан несуществующий _id карточки.' });
       }
-      res.status(INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию.' });
+      res.status(INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка' });
     });
 };
 
@@ -53,7 +53,7 @@ const likeCard = (req, res) => {
       if (err.name === 'CastError') {
         res.status(BAD_REQUEST_ERROR).send({ message: 'Переданы некорректные данные для постановки лайка.' });
       }
-      res.status(INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию' });
+      res.status(INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка' });
     });
 };
 
@@ -73,7 +73,7 @@ const dislikeCard = (req, res) => {
       if (err.name === 'CastError') {
         res.status(BAD_REQUEST_ERROR).send({ message: 'Переданы некорректные данные для снятия лайка.' });
       }
-      res.status(INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию' });
+      res.status(INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка' });
     });
 };
 module.exports = {

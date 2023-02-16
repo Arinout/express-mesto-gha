@@ -5,7 +5,7 @@ const { BAD_REQUEST_ERROR, NOT_FOUND_ERROR, INTERNAL_SERVER_ERROR } = require('.
 const getAllUsers = (req, res) => {
   User.find({})
     .then((users) => res.status(200).send({ data: users }))
-    .catch(() => res.status(INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию' }));
+    .catch(() => res.status(INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка' }));
 };
 
 const getUserById = (req, res) => {
@@ -59,7 +59,7 @@ const updateUser = (req, res) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
         res.status(BAD_REQUEST_ERROR).send({ message: 'Переданы некорректные данные при обновлении профиля.' });
       } else {
-        res.status(INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию' });
+        res.status(INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка' });
       }
     });
 };
@@ -86,7 +86,7 @@ const updateUserAvatar = (req, res) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
         res.status(BAD_REQUEST_ERROR).send({ message: 'Переданы некорректные данные при обновлении аватара.' });
       } else {
-        res.status(INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию' });
+        res.status(INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка' });
       }
     });
 };

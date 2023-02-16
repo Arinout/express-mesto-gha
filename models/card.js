@@ -11,6 +11,12 @@ const cardSchema = new mongoose.Schema({
   link: {
     type: String,
     required: true,
+    validate: {
+      validator(cardLink) {
+        return /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-])+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/i.test(cardLink);
+      },
+      message: 'Неправильный формат ссылки',
+    },
   },
 
   owner: {
