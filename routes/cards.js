@@ -8,10 +8,12 @@ const {
   dislikeCard,
 } = require('../controllers/cards');
 
+const { validatePostCard, validateCardId } = require('../middlewares/validator');
+
 cards.get('/', findAllCards);
-cards.post('/', createCard);
-cards.delete('/:cardId', deleteCard);
-cards.put('/:cardId/likes', likeCard);
-cards.delete('/:cardId/likes', dislikeCard);
+cards.post('/', validatePostCard, createCard);
+cards.delete('/:cardId', validateCardId, deleteCard);
+cards.put('/:cardId/likes', validateCardId, likeCard);
+cards.delete('/:cardId/likes', validateCardId, dislikeCard);
 
 module.exports = cards;
