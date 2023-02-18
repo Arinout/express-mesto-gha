@@ -27,7 +27,7 @@ const validateUpdateProfile = celebrate({
 
 const validateGetUsersById = celebrate({
   params: Joi.object().keys({
-    userId: Joi.string().hex().required(),
+    userId: Joi.string().hex().required().length(24),
   }),
 });
 
@@ -47,7 +47,7 @@ const validateLogin = celebrate({
 
 const validateCardId = celebrate({
   params: Joi.object().keys({
-    cardId: Joi.string().hex().required(),
+    cardId: Joi.string().hex().required().length(24),
   }),
 });
 
