@@ -8,8 +8,11 @@ const cards = require('./routes/cards');
 const auth = require('./middlewares/auth');
 const NOT_FOUND_ERROR = require('./errors/not-found-error');
 
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { createUser, login } = require('./controllers/users');
 const { validateLogin, validateCreateUser } = require('./middlewares/validator');
+
+mongoose.connect('mongodb://localhost:27017/mestodb');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -17,7 +20,7 @@ const app = express();
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/mestodb');
+app.use(requestLogger);
 
 app.post('/signin', validateLogin, login);
 app.post('/signup', validateCreateUser, createUser);
@@ -25,6 +28,8 @@ app.post('/signup', validateCreateUser, createUser);
 app.use(auth);
 app.use('/users', users);
 app.use('/cards', cards);
+
+app.use(errorLogger);
 
 app.use((req, res, next) => {
   next(new NOT_FOUND_ERROR('Ресурс не найден'));
