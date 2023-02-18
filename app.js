@@ -17,9 +17,7 @@ const app = express();
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/mestodb', {
-  useNewUrlParser: true,
-});
+mongoose.connect('mongodb://localhost:27017/mestodb');
 
 app.post('/signin', validateLogin, login);
 app.post('/signup', validateCreateUser, createUser);
